@@ -6,10 +6,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 function ShowWorkflow(props) {
-  console.log('From ShowWorkFlow');
   return (
     <div className="">
-      <h2>Add APIs</h2>
+      <h2>Added APIs</h2>
       <table className="table border">
         <thead>
           <tr>

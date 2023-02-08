@@ -30,11 +30,13 @@ function Workflow() {
     setApiResp,
     workflowName,
     setWorkflowName,
+    workflows, 
+    setWorkflows
   } = context;
 
   const [apiAll, setApiAll] = useState([]);
 
-  const [apiName, setApiName] = useState(null);
+  const [apiName, setApiObj] = useState(null);
   const [apiPath, setApiPath] = useState("");
   const [httpMethod, setHttpMethod] = useState("");
   const [requestBody, setRequestBody] = useState("");
@@ -52,139 +54,139 @@ function Workflow() {
   const [environmentList, setEnvironmentList] = useState([]);
   const [moduleList, setModuleList] = useState([]);
   const [apiDetails, setApiDetails] = useState(null);
-  const workflowList = {
-    dev: {
-      workFlowDetails: [
-        {
-          workflowName: "dev1",
-          apiList: [
-            {
-              name: "get",
-              details: {
-                fields: { name: "" },
-              },
-            },
-            {
-              name: "post",
-              details: {
-                fields: { name: "", address: "", age: "" },
-              },
-            },
-            {
-              name: "delete",
-              details: {
-                fields: { id: "" },
-              },
-            },
-          ],
-        },
-        {
-          workflowName: "dev2",
-          apiList: [
-            {
-              name: "post",
-              details: {
-                fields: { name: "", address: "", age: "" },
-              },
-            },
-            {
-              name: "delete",
-              details: {
-                fields: { id: "" },
-              },
-            },
-          ],
-        },
-      ],
-    },
+  // const workflowList = {
+  //   dev: {
+  //     workFlowDetails: [
+  //       {
+  //         workflowName: "dev1",
+  //         apiList: [
+  //           {
+  //             name: "get",
+  //             details: {
+  //               fields: { name: "" },
+  //             },
+  //           },
+  //           {
+  //             name: "post",
+  //             details: {
+  //               fields: { name: "", address: "", age: "" },
+  //             },
+  //           },
+  //           {
+  //             name: "delete",
+  //             details: {
+  //               fields: { id: "" },
+  //             },
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         workflowName: "dev2",
+  //         apiList: [
+  //           {
+  //             name: "post",
+  //             details: {
+  //               fields: { name: "", address: "", age: "" },
+  //             },
+  //           },
+  //           {
+  //             name: "delete",
+  //             details: {
+  //               fields: { id: "" },
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
 
-    uat: {
-      workFlowDetails: [
-        {
-          workflowName: "uat1",
-          apiList: [
-            {
-              name: "get",
-              details: {
-                fields: { name: "" },
-              },
-            },
-            {
-              name: "post",
-              details: {
-                fields: { name: "", address: "", age: "" },
-              },
-            },
-            {
-              name: "delete",
-              details: {
-                fields: { id: "" },
-              },
-            },
-          ],
-        },
-        {
-          workflowName: "uat2",
-          apiList: [
-            {
-              name: "post",
-              details: {
-                fields: { name: "", address: "", age: "" },
-              },
-            },
-            {
-              name: "delete",
-              details: {
-                fields: { id: "" },
-              },
-            },
-          ],
-        },
-      ],
-    },
-  };
+  //   uat: {
+  //     workFlowDetails: [
+  //       {
+  //         workflowName: "uat1",
+  //         apiList: [
+  //           {
+  //             name: "get",
+  //             details: {
+  //               fields: { name: "" },
+  //             },
+  //           },
+  //           {
+  //             name: "post",
+  //             details: {
+  //               fields: { name: "", address: "", age: "" },
+  //             },
+  //           },
+  //           {
+  //             name: "delete",
+  //             details: {
+  //               fields: { id: "" },
+  //             },
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         workflowName: "uat2",
+  //         apiList: [
+  //           {
+  //             name: "post",
+  //             details: {
+  //               fields: { name: "", address: "", age: "" },
+  //             },
+  //           },
+  //           {
+  //             name: "delete",
+  //             details: {
+  //               fields: { id: "" },
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // };
 
-  const moduleApiList = [
-    // {
-    //   moduleId: "module-1",
-    //   apiId: Date.now(),
-    //   apiName: "Get User List",
-    //   reqFields: {},
-    //   resFileds: [
-    //     {
-    //       userId: Date.now(),
-    //       userName: "USER 1",
-    //     },
-    //     {
-    //       userId: Date.now(),
-    //       userName: "USER 2",
-    //     },
-    //   ],
-    // },
-    {
-      moduleId: "module-2",
-      apiId: Date.now(),
-      apiName: "Get User List module 2",
-      reqFields: {},
-      resFileds: [
-        {
-          userId: Date.now(),
-          userName: "module-2USER 1",
-        },
-        {
-          userId: Date.now(),
-          userName: "module-2USER 2",
-        },
-      ],
-    },
-    {
-      moduleId: "module-2",
-      apiId: Date.now(),
-      apiName: "Create User",
-      reqFields: { id: Math.random(), name: "nikhil", age: 29 },
-      resFileds: { id: Math.random(), name: "nikhil", age: 29 },
-    },
-  ];
+  // const moduleApiList = [
+  //   // {
+  //   //   moduleId: "module-1",
+  //   //   apiId: Date.now(),
+  //   //   apiName: "Get User List",
+  //   //   reqFields: {},
+  //   //   resFileds: [
+  //   //     {
+  //   //       userId: Date.now(),
+  //   //       userName: "USER 1",
+  //   //     },
+  //   //     {
+  //   //       userId: Date.now(),
+  //   //       userName: "USER 2",
+  //   //     },
+  //   //   ],
+  //   // },
+  //   {
+  //     moduleId: "module-2",
+  //     apiId: Date.now(),
+  //     apiName: "Get User List module 2",
+  //     reqFields: {},
+  //     resFileds: [
+  //       {
+  //         userId: Date.now(),
+  //         userName: "module-2USER 1",
+  //       },
+  //       {
+  //         userId: Date.now(),
+  //         userName: "module-2USER 2",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     moduleId: "module-2",
+  //     apiId: Date.now(),
+  //     apiName: "Create User",
+  //     reqFields: { id: Math.random(), name: "nikhil", age: 29 },
+  //     resFileds: { id: Math.random(), name: "nikhil", age: 29 },
+  //   },
+  // ];
 
   let navigate = useNavigate();
 
@@ -201,7 +203,7 @@ function Workflow() {
 
   function showApiInputBox(switchBox) {
     if (switchBox === true) {
-      setApiName("");
+      setApiObj("");
       setApiPath("");
       setHttpMethod("");
       setRequestBody("");
@@ -210,58 +212,57 @@ function Workflow() {
     setEditBox(false);
   }
 
-  function disableAdd() {
-    if (
-      apiName &&
-      apiName.length > 0 &&
-      apiPath &&
-      apiPath.length > 0 &&
-      httpMethod &&
-      httpMethod.length > 0
-    ) {
-      return false;
-    }
-    return true;
-  }
+  // function disableAdd() {
+  //   if (
+  //     apiName &&
+  //     apiName.length > 0 &&
+  //     apiPath &&
+  //     apiPath.length > 0 &&
+  //     httpMethod &&
+  //     httpMethod.length > 0
+  //   ) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   function disableWorkflow() {
-    console.log('DisableWorkflow====>', apiList)  ;
     if (workflowName && apiList && apiList.length > 0) {
       return false;
     }
     return true;
   }
 
-  function autoCompleteApi(val) {
-    setApiName(val);
-    let selectedApiIndex = apiAllNames.findIndex((item) => item === val);
-    if (selectedApiIndex !== -1) {
-      setApiPath(apiAll[selectedApiIndex].apiPath);
-      setHttpMethod(apiAll[selectedApiIndex].httpMethod);
-      setRequestBody(apiAll[selectedApiIndex].requestBody);
-    } else {
-      setApiPath("");
-      setHttpMethod("");
-      setRequestBody("");
-    }
-  }
+  // function autoCompleteApi(val) {
+  //   setApiObj(val);
+  //   let selectedApiIndex = apiAllNames.findIndex((item) => item === val);
+  //   console.log("apiAllNames=====>",apiAllNames, selectedApiIndex);
+  //   if (selectedApiIndex !== -1) {
+  //     setApiPath(apiAll[selectedApiIndex].apiPath);
+  //     setHttpMethod(apiAll[selectedApiIndex].httpMethod);
+  //     setRequestBody(apiAll[selectedApiIndex].requestBody);
+  //   } else {
+  //     setApiPath("");
+  //     setHttpMethod("");
+  //     setRequestBody("");
+  //   }
+  // }
 
-  function addApi() {
-    const apiObj = {
-      apiName: apiName,
-      apiPath: apiPath,
-      httpMethod: httpMethod,
-      requestBody: requestBody,
-    };
-    if (editBox) {
-      const newApiList = apiList.slice();
-      newApiList[editIndex] = apiObj;
-      setApiList(newApiList);
-    } else {
-      setApiList([...apiList, apiObj]);
-    }
+  function addApi(payload) {
 
-    setApiName("");
+    const { apiDetails } = payload;
+
+    // console.log(apiName, apiList?.length);
+
+    // const apilist = apiList.length<=0 ? 
+    //                 setApiList(apiDetails): 
+    //                 setApiList([...apiList, 
+    //                   ...apiDetails.map((api) => {
+    //                       return api.apiId === apiName.value ? api : null })
+    //                       .filter(e=>e)])
+
+    setApiList(apiDetails)
+    setApiObj("");
     setApiPath("");
     setHttpMethod("");
     setRequestBody("");
@@ -271,6 +272,7 @@ function Workflow() {
   }
 
   function deleteApi(index) {
+    workflowApiList.findIndex(obj => obj.apiName === apiName.label )
     setApiList(apiList.filter((_, ind) => ind !== index));
   }
 
@@ -279,7 +281,7 @@ function Workflow() {
     setEditIndex(index);
     apiList.forEach((item, ind) => {
       if (ind === index) {
-        setApiName(item.apiName);
+        setApiObj(item.apiName);
         setApiPath(item.apiPath);
         setHttpMethod(item.httpMethod);
         setRequestBody(item.requestBody);
@@ -293,36 +295,48 @@ function Workflow() {
       switch (api.httpMethod) {
         case "GET":
           axios.get(api.apiPath).then((response) => {
-            setResponseReceived(response.data);
+            console.log("GET response.data=====>",response.data[0]);
+            setResponseReceived({apiId: api.apiId, resp: response.data[0], status: true});
+          }).catch((err) => {
+            setResponseReceived(err.data, false);
           });
           break;
         case "POST":
           axios.post(api.apiPath, api.requestBody).then((response) => {
-            setResponseReceived(response.data);
+            console.log("POST response.data=====>",response.data);
+            setResponseReceived({apiId: api.apiId, resp: response.data, status: true});
             // setApiResp([...apiResp, [...response.data]]);
+          }).catch((err) => {
+            setResponseReceived(err.data, false);
           });
           break;
         case "PUT":
           axios.put(api.apiPath, api.requestBody).then((response) => {
-            setResponseReceived(response.data);
+            console.log("PUT response.data=====>",response.data);
+            setResponseReceived({apiId: api.apiId, resp: response.data, status: true});
             // setApiResp([...apiResp, [...response.data]]);
+          }).catch((err) => {
+            setResponseReceived(err.data, false);
           });
           break;
         case "DELETE":
           axios.delete(api.apiPath).then((response) => {
-            console.log(response.data);
-            setResponseReceived([{ resp: "Not Available" }]);
+            console.log("DELETE response.data=====>",response.data);
+            // setResponseReceived([{ resp: "Not Available" }], true);
+            setResponseReceived({apiId: api.apiId, resp: response.data, status: true});
             // setResponseReceived(response.data);
             // setApiResp([...apiResp, ]);
+          }).catch((err) => {
+            setResponseReceived(err.data, false);
           });
           break;
         default:
           break;
       }
     });
-    navigate("/apiResp");
+    navigate("/workflows");
   }
-  function setResponseReceived(respReceived) {
+  function setResponseReceived(respReceived, status) {
     const apiResponse = apiResp.slice();
     if (respReceived && respReceived.length > 0) {
       setApiResp([...apiResponse, [...respReceived]]);
@@ -333,72 +347,56 @@ function Workflow() {
   // console.log(apiName, apiPath, httpMethod, requestBody);
 
   const handleEnvironmentChange = (e) => {
-    console.log("Env==>", workflowList[e.target.value]);
-
     updateEnvironment(e.target.value);
     const list = getModuleList(e.target.value);
-    console.log("moduleList==>", list);
     setModuleList(list.moduleList);
     updateModule("");
-    setApiName(null);
+    setApiObj(null);
   };
 
   const handleModuleChange = (e) => {
-    setApiName(null);
-    console.log("Module==>", e.target.value);
+    setApiObj(null);
     const list = getApiList(e.target.value);
     let arr = list.apiList;
-    console.log("LIST==>", arr);
-    let optionsArr = [];
-    optionsArr = arr.map((list) => {
+    let optionsArr = arr.map((list) => {
       return { value: list.apiId, label: list.apiName };
     });
-    const apiData = getApiList(e.target.value);
-    console.log("API LIST==>", apiData);
     updateModuleApiList(arr);
     updateOptions(optionsArr);
     updateModule(e.target.value);
   };
-  const createReqFildesArr = () => {
-    let objectKeysArr = null;
-    if (workflowApiList.length > 1) {
-      objectKeysArr = workflowApiList[workflowApiList.length - 1].requestField;
-      if (workflowApiList.length > 1) {
-        const index = workflowApiList.findIndex(
-          (obj) => obj.apiName == apiName.label
-        );
 
-        const keysArr = workflowApiList[index - 1].requestField;
-        // Object.keys(workflowApiList[index - 1].requestField);
-        setReqFiledsArr(keysArr);
-        console.log("arrObj===>", index, keysArr);
-      }
-    }
-    if (workflowApiList.length > 1) {
-      let newWorkflowApiList = [...workflowApiList];
-      let fieldMapping = {};
-      const lastIndex = newWorkflowApiList.length - 1;
-      let currentApiObj = newWorkflowApiList[lastIndex];
-      console.log("if currentApiObj===>", currentApiObj);
-      currentApiObj["requestField"] =
-        newWorkflowApiList[lastIndex - 1]?.responseField;
+  useEffect(() => {
+    createReqFildesArr();
+  }, [workflowApiList]);
 
-      const keysArr = currentApiObj?.requestField;
-      const valuesArr = currentApiObj?.requestField;
+  const createReqFildesArr = () => {  
+    if(workflowApiList.length>1) {
+      const currentApiKeysArr = workflowApiList[workflowApiList.length - 1].requestField;
+      const index = workflowApiList.findIndex(
+            (obj) => obj.apiName == apiName.label
+          );
+      console.log("arr[index - 1]", workflowApiList, index);
+      const previousApiResponseKeysArr = workflowApiList[index].responseField;
 
-      const fieldMappingArr = keysArr.map((val, i) => {
+      setReqFiledsArr(previousApiResponseKeysArr);
+
+      const fieldMappingArr = previousApiResponseKeysArr.map((val, i) => {
         return { key: val };
       });
 
       fieldMappingArr.map((obj) => {
-        valuesArr.map((val) => {
+        currentApiKeysArr.map((val) => {
           obj.value = val;
         });
       });
 
+      console.log("workflowApiList====>",workflowApiList);
       updateMappingArr(fieldMappingArr);
+      showModal();
+    } else {
+      console.log("workflowApiList not ready to sync");
     }
-    showModal();
   };
   const showModal = () => {
     if (workflowApiList.length == 1) {
@@ -417,16 +415,18 @@ function Workflow() {
           },
         ],
       };
-      console.log("Request Payload===>", reuestPaylod);
+      // console.log("Request Payload===>", reuestPaylod);
     } else {
       toogleModal(!show);
     }
   };
 
   const getApiDetails = (val) => {
-    const apiObj = moduleApi.find((obj) => obj.apiName == val.label);
+    // return moduleApi.find((obj) => obj.apiName == val.label);
+    const apiName = moduleApi.find((obj) => obj.apiName == val.label);
+    console.log("getApiDetails=====>", val, apiName) ;
     let arr = [...workflowApiList];
-    arr.push(apiObj);
+    arr.push(apiName);
     updateWorkflowApiList(arr);
   };
 
@@ -434,7 +434,7 @@ function Workflow() {
   const renderApiDetailsTable = () => {
     return (
       <div style={{ marginTop: 20 }}>
-        <h5>API Added to Workflow</h5>
+        <h5>Selected APIs</h5>
         <Table striped bordered hover responsive>
           <thead>
             <tr>
@@ -464,6 +464,28 @@ function Workflow() {
   const closeModal = () => {
     toogleModal(false);
   };
+
+  const addWorkflowtoList = (payload) => {
+    if(workflows && workflows.length> 0) {
+      setWorkflows([...workflows, payload]);
+    } else {
+      setWorkflows([payload]);
+    }
+  }
+
+  const getUniqueId = () => {
+    const date = new Date();
+    let components = [
+      date.getYear(),
+      date.getMonth(),
+      date.getDate(),
+      date.getHours(),
+      date.getMinutes(),
+      date.getSeconds(),
+      date.getMilliseconds()
+    ];
+    return components.join("");
+  }
 
   const handleCreateWorkflow = () => {
     let data = workflowApiList.map((obj, index) => {
@@ -495,39 +517,43 @@ function Workflow() {
       }
       return obj;
     });
-    let reuestPaylod = {
-      id: Math.random(),
+    let workflowPayload = {
+      id: getUniqueId(),// Math.random(),
       name: workflowName,
       apiDetails: [...data],
     };
-    console.log("Workflow payload==>", reuestPaylod);
+    console.log("Workflow payload==>", workflowPayload);
     closeModal();
     updateMappingArr([]);
-    setApiName(null);
+    // setApiObj(null);
     setReqFiledsArr([]);
+    addApi(workflowPayload);
+    addWorkflowtoList(workflowPayload);
+
+    // setApiList(reuestPaylod.apiDetails);
   };
 
-  const createFieldMapping = () => {
-    let newWorkflowApiList = [...workflowApiList];
-    let fieldMapping = {};
-    const lastIndex = newWorkflowApiList.length - 1;
-    let currentApiObj = newWorkflowApiList[lastIndex];
-    currentApiObj.reqFields = newWorkflowApiList[lastIndex - 1].responseField;
-    fieldMapping[requestFileds] = currentApiObj.reqFields[requestFileds];
-    if (currentApiObj.fieldMapping) {
-      currentApiObj.fieldMapping = {
-        ...currentApiObj.fieldMapping,
-        ...fieldMapping,
-      };
-    } else {
-      currentApiObj.fieldMapping = { ...fieldMapping };
-    }
+  // const createFieldMapping = () => {
+  //   let newWorkflowApiList = [...workflowApiList];
+  //   let fieldMapping = {};
+  //   const lastIndex = newWorkflowApiList.length - 1;
+  //   let currentApiObj = newWorkflowApiList[lastIndex];
+  //   currentApiObj.reqFields = newWorkflowApiList[lastIndex - 1].responseField;
+  //   fieldMapping[requestFileds] = currentApiObj.reqFields[requestFileds];
+  //   if (currentApiObj.fieldMapping) {
+  //     currentApiObj.fieldMapping = {
+  //       ...currentApiObj.fieldMapping,
+  //       ...fieldMapping,
+  //     };
+  //   } else {
+  //     currentApiObj.fieldMapping = { ...fieldMapping };
+  //   }
 
-    newWorkflowApiList[lastIndex] = currentApiObj;
+  //   newWorkflowApiList[lastIndex] = currentApiObj;
 
-    updateWorkflowApiList(newWorkflowApiList);
-    console.log("fieldMapping===>", fieldMapping, newWorkflowApiList);
-  };
+  //   updateWorkflowApiList(newWorkflowApiList);
+  //   console.log("fieldMapping===>", fieldMapping, newWorkflowApiList);
+  // };
 
   const updateMappingFields = (data, index) => {
     let newMappingArr = [...mappingArr];
@@ -574,7 +600,6 @@ function Workflow() {
     } else return null;
   };
 
-  // console.log("apiList",apiList);
   return (
     <>
       <form className="mb-2">
@@ -645,12 +670,9 @@ function Workflow() {
                     value={apiName}
                     isClearable={true}
                     onChange={(data) => {
-                      setApiName(data);
+                      setApiObj(data);
                       getApiDetails(data);
-                      // console.log("AUTO COMPLETE===>", data);
-                      // console.log("AUTO apiName===>", apiName);
-                      console.log("api list ===>",apiList);
-                      // console.log("workflowApiList====>", workflowApiList)
+                      console.log("workflowApiList====>", workflowApiList);
                     }}
                   />
                 </Form>
@@ -659,8 +681,9 @@ function Workflow() {
                 variant="primary"
                 onClick={() => createReqFildesArr()}
                 style={{ marginTop: 10, marginBottom: 20 }}
+                disabled={workflowApiList?.length<=1}
               >
-                Add
+                Sync Payload
               </Button>
             </Accordion.Body>
           </Accordion.Item>
@@ -673,19 +696,20 @@ function Workflow() {
           <Modal.Body>{renderApiMappingTable()}</Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={handleCreateWorkflow}>
-              Create WorkFlow
+              Add Workflow
             </Button>
             <Button variant="secondary" onClick={closeModal}>
               Close
             </Button>
           </Modal.Footer>
         </Modal>
-        {workflowApiList.length ? renderApiDetailsTable() : null}
-        <div
+        {workflowApiList.length>1 ? renderApiDetailsTable() : null}
+
+
+        {/* <div
           className={`shadow p-3 mb-5 bg-body rounded border ${
             addApiBox ? "d-block" : "d-none"
-          }`}
-        >
+          }`}>
           <div className="mb-3 dropdown">
             <label htmlFor="apiName" className="form-label">
               Api Name
@@ -729,7 +753,7 @@ function Workflow() {
             >
               {editBox ? "Edit" : "Add"}
             </Button>
-            {/*  */}
+            
             <Button
               variant="contained"
               color="error"
@@ -738,7 +762,7 @@ function Workflow() {
               Cancel
             </Button>
           </div>
-        </div>
+        </div>*/}
       </form>
 
       {apiList && apiList.length > 0 ? (

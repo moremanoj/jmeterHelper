@@ -77,7 +77,7 @@ const mdTheme = createTheme();
 
 function App() {
   const context = useContext(workflowContext);
-  const { apiList, apiResp, workflowName } = context;
+  const { workflows } = context;
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -168,12 +168,10 @@ function App() {
                       <Routes>
                         <Route path="/" element={<Workflow />}></Route>
                         <Route
-                          path="/apiResp"
+                          path="/workflows"
                           element={
                             <Response
-                              apiResp={apiResp}
-                              apiList={apiList}
-                              workflowName={workflowName}
+                              workflows={workflows}
                             />
                           }
                         ></Route>
